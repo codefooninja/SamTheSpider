@@ -34,7 +34,7 @@
   <ItemGroup>
     <Reference Include="HtmlAgilityPack, Version=1.4.6.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>bin\Debug\HtmlAgilityPack.dll</HintPath>
+      <HintPath>BinaryDependency\HtmlAgilityPack.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,6 +62,11 @@
     <None Include="DataFiles\SkillsCount.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="BinaryDependency\HtmlAgilityPack.dll" />
+    <Content Include="BinaryDependency\HtmlAgilityPack.pdb" />
+    <Content Include="BinaryDependency\HtmlAgilityPack.XML" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
