@@ -14,11 +14,11 @@ namespace TalentSpider
     class Program
     {
         static Assembly ass = Assembly.GetExecutingAssembly();
-        static string path = Path.Combine(Path.GetDirectoryName(ass.Location),"DataFiles");
+        static string path = Path.Combine(Path.GetDirectoryName(ass.Location), "DataFiles");
         static string URLS = "Companyurls.csv";
         static string JobsPages = "JobsPages.csv";
         static string PositionTitles = "PositionTitles.csv";
-       
+
         static List<string> JobsUrls = new List<string>();
 
         static void Main(string[] args)
@@ -30,12 +30,12 @@ namespace TalentSpider
                 {
                     // Get the value of the HREF attribute
                     string hrefValue = link.GetAttributeValue("href", string.Empty);
-                    hrefValue = FixRelativePaths(url,hrefValue);
-                    
+                    hrefValue = FixRelativePaths(url, hrefValue);
 
-                    if (ContainsJobsPages(hrefValue,link.InnerText))
+
+                    if (ContainsJobsPages(hrefValue, link.InnerText))
                     {
-                        string PositionURL = PageHasPositionTitle(url,hrefValue);
+                        string PositionURL = PageHasPositionTitle(url, hrefValue);
                         if (!String.IsNullOrEmpty(PositionURL))
                         {
                             ReviewPositionForSkills(PositionURL);
@@ -49,7 +49,7 @@ namespace TalentSpider
             }
         }
 
-        private static string FixRelativePaths(string root,string hrefValue)
+        private static string FixRelativePaths(string root, string hrefValue)
         {
             if (!hrefValue.StartsWith("htt"))
             {
@@ -78,24 +78,24 @@ namespace TalentSpider
             {
                 if (page.ToString().ToLower().Contains(title.ToLower()))
                 {
-                    if(!ReviewPositionForSkills(url))
+                    if (!ReviewPositionForSkills(url))
                     {
                         foreach (HtmlNode link in page.DocumentNode.SelectNodes("//a[@href]"))
                         {
-                            if(link.InnerText.ToLower()==title.ToLower())
+                            if (link.InnerText.ToLower() == title.ToLower())
                             {
                                 titleURL = link.GetAttributeValue("href", string.Empty);
-                                titleURL = FixRelativePaths(root,titleURL);
+                                titleURL = FixRelativePaths(root, titleURL);
                             }
                         }
                     }
                 }
             }
-            
+
             return titleURL;
         }
 
-        public static bool ContainsJobsPages(string url,string LinkText)
+        public static bool ContainsJobsPages(string url, string LinkText)
         {
             foreach (string jobterm in File.ReadAllLines(Path.Combine(path, JobsPages)))
             {
@@ -116,7 +116,7 @@ namespace TalentSpider
         {
             HtmlWeb hw = new HtmlWeb();
             HtmlAgilityPack.HtmlDocument page = new HtmlAgilityPack.HtmlDocument();
-            
+
             page = hw.Load(url);
             return page;
         }
